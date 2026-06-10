@@ -1,0 +1,4 @@
+@EndUserText.label: 'Urun ve Stok UI Servisi'
+define service Z_UI_PRODUCTSTOCK_OD {
+  expose Z_C_ProductStock_OD as ProductStock;
+}

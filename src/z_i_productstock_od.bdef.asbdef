@@ -1,0 +1,40 @@
+managed implementation in class zbp_i_productstock_od unique;
+strict ( 2 );
+with draft;
+
+define behavior for Z_I_ProductStock_OD alias ProductStock
+persistent table zinv_stock_od
+draft table zinv_stock_d_od
+lock master
+total etag last_updated_at
+authorization master ( instance, global )
+
+{
+  //" 1. Otomatik UUID üretimi için tek ve temiz tanım:
+  field ( numbering : managed, readonly ) stock_id;
+
+  create ( precheck );
+  update;
+  delete;
+
+  //" 2. Diğer readonly alanlardan stock_id'yi çıkardık, sadece kalanlar duruyor:
+  field ( readonly ) base_unit, min_stock_level, StockStatus;
+  field ( mandatory : create ) product_id;
+
+  determination determineProductDetails on modify { field product_id; }
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for zinv_stock_od
+  {
+    stock_id      = stock_id;
+    product_id    = product_id;
+    total_quantity = total_quantity;
+    unit           = unit;
+    last_updated_at = last_updated_at;
+  }
+}

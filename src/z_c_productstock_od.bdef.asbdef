@@ -1,0 +1,22 @@
+projection;
+strict ( 2 );
+use draft;
+use side effects;
+
+define behavior for Z_C_ProductStock_OD alias ProductStock
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+
+  field ( mandatory : create ) product_id;
+
+  // Arayüzden girilen miktarı arka plana taşımak için sadece alanı belirtmemiz yeterlidir:
+  field ( mandatory ) total_quantity;
+}
