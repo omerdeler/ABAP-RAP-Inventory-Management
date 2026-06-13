@@ -1,0 +1,42 @@
+managed implementation in class zbp_i_product_od unique;
+strict ( 2 );
+with draft;
+
+
+
+define behavior for Z_I_PRODUCT_OD alias Product
+persistent table zinv_product_od
+draft table zinv_prod_d_od
+lock master
+total etag last_updated_at
+authorization master ( instance, global )
+
+
+
+{
+  create;
+  update;
+  delete;
+
+  field ( mandatory ) ProductId, ProductName;
+
+
+   // Draft mekanizmasının standart aksiyonlarını:
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+
+
+  mapping for zinv_product_od
+  {
+    ProductId     = product_id;
+    ProductName   = product_name;
+    Category      = category;
+    BaseUnit      = base_unit;
+    MinStockLevel = min_stock_level;
+    last_updated_at = last_updated_at;
+  }
+}

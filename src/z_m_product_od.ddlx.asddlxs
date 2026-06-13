@@ -1,0 +1,39 @@
+@Metadata.layer: #CUSTOMER
+
+annotate entity Z_C_PRODUCT_OD
+    with 
+{
+      @UI.facet: [
+            {
+                id:              'ProductDetails',
+                purpose:         #STANDARD,
+                type:            #IDENTIFICATION_REFERENCE,
+                label:           'Ürün Detayları',
+                position:        10
+            }
+      ]
+    
+      @UI.lineItem: [{ position: 10, label: 'Ürün ID' }]
+      @UI.identification: [{ position: 10, label: 'Ürün ID' }]
+      @UI.selectionField: [{ position: 10 }]
+      ProductId;
+    
+      @UI.lineItem: [{ position: 20, label: 'Ürün Adı' }]
+      @UI.identification: [{ position: 20, label: 'Ürün Adı' }]
+      @UI.selectionField: [{ position: 20 }]
+      ProductName;
+    
+      @UI.lineItem: [{ position: 30, label: 'Kategori' }]
+      @UI.identification: [{ position: 30, label: 'Kategori' }]
+      @UI.selectionField: [{ position: 30 }]
+      Category;
+    
+      @UI.lineItem: [{ position: 40, label: 'Ölçü Birimi' }]
+      @UI.identification: [{ position: 40, label: 'Ölçü Birimi' }]
+      BaseUnit;
+    
+      @UI.lineItem: [{ position: 50, label: 'Asgari Stok Seviyesi' }]
+      @UI.identification: [{ position: 50, label: 'Asgari Stok Seviyesi' }]
+      MinStockLevel;
+    
+}
