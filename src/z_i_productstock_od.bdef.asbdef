@@ -7,7 +7,7 @@ persistent table zinv_stock_od
 draft table zinv_stock_d_od
 lock master
 total etag last_updated_at
-authorization master ( instance, global )
+authorization master ( global )
 
 {
   //" 1. Otomatik UUID üretimi için tek ve temiz tanım:
@@ -18,10 +18,16 @@ authorization master ( instance, global )
   delete;
 
   //" 2. Diğer readonly alanlardan stock_id'yi çıkardık, sadece kalanlar duruyor:
-  field ( readonly ) base_unit, min_stock_level, StockStatus;
+  field ( readonly ) base_unit, min_stock_level;
   field ( mandatory : create ) product_id;
 
-  determination determineProductDetails on modify { field product_id; }
+  determination determineProductDetails on modify { field product_id, total_quantity; }
+
+  validation validateQuantity on save { field total_quantity; }
+
+  static action sendInventoryReport parameter Z_A_MAILPARAMETER_OD;
+
+
 
   draft action Edit;
   draft action Activate optimized;

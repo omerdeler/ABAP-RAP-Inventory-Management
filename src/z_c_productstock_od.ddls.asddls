@@ -16,6 +16,8 @@ define root view entity Z_C_ProductStock_OD
         @Semantics.quantity.unitOfMeasure: 'unit'
         total_quantity,
         unit,           
-        last_updated_at, 
-        StockStatus
+        last_updated_at,
+        local_last_changed_at,
+        StockStatus,
+        StockCriticality
 }

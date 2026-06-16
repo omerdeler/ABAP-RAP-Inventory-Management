@@ -1,7 +1,10 @@
 @Metadata.layer: #CORE
 @UI.createHidden: false
+
 annotate view Z_C_ProductStock_OD with
 {
+
+  
 
   @UI.facet: [
     {
@@ -12,11 +15,16 @@ annotate view Z_C_ProductStock_OD with
       position:        10
     }
   ]
-
-  @UI: { lineItem:       [ { position: 10, label: 'Ürün Kodu' } ],
-         identification: [ { position: 10, label: 'Ürün Kodu' } ],
-         selectionField: [ { position: 10 } ] } // Arama çubuğuna Ürün Kodu filtresini de açtık
-
+  
+  // Sadece butonun tipini ve backend aksiyon adını belirterek en sade haliyle birleştiriyoruz:
+  @UI: { 
+    lineItem: [ 
+      { position: 10, label: 'Ürün Kodu' },
+      { type: #FOR_ACTION, dataAction: 'sendInventoryReport', label: 'E-Mail' }
+    ],
+    identification: [ { position: 10, label: 'Ürün Kodu' } ],
+    selectionField: [ { position: 10 } ] 
+  }
   product_id;
 
   @UI: { lineItem:       [ { position: 20, label: 'Ürün Adı' } ],
@@ -32,7 +40,7 @@ annotate view Z_C_ProductStock_OD with
          identification: [ { position: 40, label: 'Toplam Stok' } ] }
   total_quantity;
 
-  @UI: { lineItem:       [ { position: 50, label: 'Durum' } ],
-         identification: [ { position: 50, label: 'Durum' } ] }
+  @UI: { lineItem:       [ { position: 50, label: 'Durum', criticality: 'StockCriticality' } ],
+         identification: [ { position: 50, label: 'Durum', criticality: 'StockCriticality' } ] }
   StockStatus;
 }

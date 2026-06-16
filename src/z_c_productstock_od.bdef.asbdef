@@ -15,6 +15,14 @@ define behavior for Z_C_ProductStock_OD alias ProductStock
   use action Resume;
   use action Prepare;
 
+  use action sendInventoryReport;
+
+  //1. Yöntem
+//  side effects { field total_quantity affects field StockStatus, field StockCriticality; }
+  //2. Yöntem
+  // total_quantity değiştiğinde bu kayda ait tüm alanları ($self) yenile diyoruz:
+  side effects { field total_quantity affects $self; }
+
   field ( mandatory : create ) product_id;
 
   // Arayüzden girilen miktarı arka plana taşımak için sadece alanı belirtmemiz yeterlidir:
